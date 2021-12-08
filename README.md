@@ -9,7 +9,8 @@ people trying to do similar tasks.'                                     -Najlaro
 
 - probably will later change the name
 
-USER'S MANUAL
+# USER'S MANUAL
+
 1)
   Input your desired sequence as raw text OR as fasta/txt format (after inputing 'F'). 
   Confirm by pressing ENTER twice.
