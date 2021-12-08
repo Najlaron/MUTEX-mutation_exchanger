@@ -1,6 +1,4 @@
-#|  WELCOME TO MUTEX, SIMPLE SCRIPT TO INTRODUCE POINT MUTATIONS TO YOUR SEQUENCE |
-#|                        ---------  MUTEX  ---------                             |
-#|--------------------------------------------------------------------------------|
+# WELCOME TO MUTEX, SIMPLE SCRIPT TO INTRODUCE POINT MUTATIONS TO YOUR SEQUENCE
 
 "With Covid's new mutation Omicrone having enourmous number of point mutations and
 trying to manually change the sequence of its spike protein I decided to sit down 
@@ -8,7 +6,8 @@ and write this short script. Hopefully this will help not only me, but also othe
 people trying to do similar tasks.'                                     -Najlaron
 
 
-# - probably will later change the name
+
+- probably will later change the name
 
 USER'S MANUAL
 1)
