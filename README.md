@@ -32,6 +32,7 @@ S:D950N
 #There is many ways you can put in your mutations, just be sure each mutation ends with end of a line or non-letter (and non'-') character.
 #in this example S: ment its spike protein mutation, everything is ignored until MUTEX finds first letter followed by number followed by letter (or '-' for deletion).
  -Confirm by pressing ENTER twice.
+ 
 3)
  -MUTEX gives you information about the process and your result sequence. 
   
