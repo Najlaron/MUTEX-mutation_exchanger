@@ -12,10 +12,13 @@ people trying to do similar tasks.'                                     -Najlaro
 # USER'S MANUAL
 
 1)
- -Input your desired sequence as raw text OR as fasta/txt format (after inputing 'F'). 
+ -Input your desired sequence as raw text OR as fasta/txt format (after inputing 'F').
+ 
  -Confirm by pressing ENTER twice.
+ 
 2)
   -Input your mutations in format AA1 index(counting from 1) AA2.
+  
 #mutations can be directly copied from web such as CoVariants:
 :T19R
 S:E156-
@@ -36,7 +39,4 @@ S:D950N
 
 4)
  -Decide what you want MUTEX to do with the result sequence.
-  
-  
-  
   
