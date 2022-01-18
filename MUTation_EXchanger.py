@@ -4,16 +4,16 @@
 
 import os
 
-def mutate(seq, mutations, fasta_name = ">mutated_sequence"):
+def mutate(seq, mutations, ignored, fasta_name = ">mutated_sequence"):
     seq = seq.replace("\n", "")
     mutex_seq = ""
-    mut_list = trim_mutations(mutations)
+    mut_list = trim_mutations(mutations, ignored)
     j = 0
     count = [0,0]
     for i, char in enumerate(seq):
         if (j < len(mut_list) and i+1 == mut_list[j][1]):
             count[1] += 1
-            if (char == mut_list[j][0]):
+            if (char == mut_list[j][0] or mut_list[j][0] == '€'):
                 mutex_seq += mut_list[j][2].lower()
                 count[0] += 1
             else:
@@ -30,8 +30,10 @@ def mutate(seq, mutations, fasta_name = ">mutated_sequence"):
     mutex_seq = mutex_seq.replace("-", "")
     return mutex_seq, fasta_name
 
-def trim_mutations(mutations):
+def trim_mutations(mutations, ignored):
     mut_list = []
+    for i in range(len(ignored)):
+        mutations = mutations.replace(ignored[i], "")
     mutations = mutations.upper()
     ln = len(mutations)
     this = ""
@@ -53,10 +55,29 @@ def trim_mutations(mutations):
                 elif(ord(c) >=  65 and ord(c) <= 90 or ord(c) == 45):
                     mutation += c
                 else:
+                    i = 0
                     break
             if (mutation != ""):
                 mut_list.append([this, int(nm_s), mutation])
-                i = 0
+                i -= j
+        elif(j > 2):
+            if (mutations[j-2:j+1] == "DEL"):
+                this = "€" #€ stands for always found char
+                mutation = "-"
+                this_nm = ""
+                for i in range(j+1, ln):
+                    c = mutations[i]
+                    if(c == '/'):
+                        nm_s = this_nm
+                        this_nm = ""
+                    elif(ord(c) >=  48 and ord(c) <= 57):
+                        this_nm += c
+                    else:
+                        break
+                nm_s_2 = this_nm
+                for m in range(int(nm_s),int(nm_s_2)+1):
+                    mut_list.append([this, m, mutation])
+                i -= j + 1
         j += i + 1
     mut_list = sorted(mut_list, key = lambda x: x[1], reverse = False)
     print(mut_list)
@@ -120,9 +141,11 @@ def main_menu():
                 print("Check that your file is in correct directory or input whole path.")
                 print("Your parent directory is: " + str(os.path.abspath(os.pardir)))
                 continue
-        print("Input mutations as text in some form such as: AA1 index AA2")
+        print("Input mutations as text in some form such as: AA1 index AA2 (use € as AA1 if you want replacy any character on given index)" )
         mutations = input_lines()
-        mutex_seq, fasta_name = mutate(sequence, mutations, fasta_name)
+        print("Input string parts of the mutations that should be ignored such as: ORF1a ,ORF1b and/or press enter twice (! Don't input S, E, etc. this will replace all such words/characters))" )
+        ignored = input_lines()
+        mutex_seq, fasta_name = mutate(sequence, mutations, ignored.split(','), fasta_name)
         print("----------------------------------------------------------------------------------------------")
         print("Input:     'Y', if you wanna mutate another sequence.\n           'S', if you wanna save result as fasta file.\n           'C', if you wanna print out result sequence without '-' for deletion.\n           'N', if you wanna end MUTEX.")
         command = input().upper()
